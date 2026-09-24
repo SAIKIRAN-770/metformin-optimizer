@@ -1,7 +1,8 @@
 streamlit
-tensorflow>=2.12.0
 pandas
 numpy
 joblib
 scikit-learn
+https://googleapis.com
+
 
