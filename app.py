@@ -14,15 +14,16 @@ st.write("Adjust the functional ingredient mass parameters using the sliders bel
 # 2. Loading the Model Assets Cache (Case-Insensitive Multi-Path Fallbacks)
 @st.cache_resource
 def load_assets():
-    file_x = "scaler_X.pkl" if os.path.exists("scaler_X.pkl") else "scaler_x.pkl"
-    file_y = "scaler_Y.pkl" if os.path.exists("scaler_Y.pkl") else "scaler_y.pkl"
+    # Detects if file name uses uppercase or lowercase characters automatically
+    file_path_x = "scaler_X.pkl" if os.path.exists("scaler_X.pkl") else "scaler_x.pkl"
+    file_path_y = "scaler_Y.pkl" if os.path.exists("scaler_Y.pkl") else "scaler_y.pkl"
     
-    scaler_X = joblib.load(file_x)
-    scaler_Y = joblib.load(file_y)
-    return scaler_X, scaler_Y
+    scaler_X_object = joblib.load(file_path_x)
+    scaler_Y_object = joblib.load(file_path_y)
+    return scaler_X_object, scaler_Y_object
 
 try:
-    scaler_X, scaler_Y = load_assets()
+    scaler_X, scaler_y = load_assets()
 except Exception as e:
     st.error(f"Error loading model assets. Please check file names. Details: {e}")
     st.stop()
