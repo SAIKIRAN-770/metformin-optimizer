@@ -14,8 +14,8 @@ st.write("Adjust the functional ingredient mass parameters using the sliders bel
 # 2. Loading the Model Assets Cache (With Case-Insensitive Multi-Path Fallbacks)
 @st.cache_resource
 def load_assets():
-    file_x = "scaler_X.pkl" if os.path.exists("scaler_X.pkl") else "scaler_x.pkl"
-    file_y = "scaler_Y.pkl" if os.path.exists("scaler_Y.pkl") else "scaler_y.pkl"
+    file_x = "scaler_X.pkl" if os.path.exists("scaler_X.pkl") else "scaler_X.pkl"
+    file_y = "scaler_Y.pkl" if os.path.exists("scaler_Y.pkl") else "scaler_Y.pkl"
     
     scaler_X = joblib.load(file_x)
     scaler_y = joblib.load(file_y)
