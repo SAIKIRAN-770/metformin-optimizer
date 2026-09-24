@@ -11,18 +11,18 @@ st.title("💊 Metformin HCl Tablet Optimization Platform")
 st.markdown("### Quality by Design (QbD) Multi-Output Neural Network App")
 st.write("Adjust the functional ingredient mass parameters using the sliders below to dynamically check core tablet attributes.")
 
-# 2. Loading the Model Assets Cache (With Case-Insensitive Multi-Path Fallbacks)
+# 2. Loading the Model Assets Cache (Case-Insensitive Multi-Path Fallbacks)
 @st.cache_resource
 def load_assets():
-    file_X = "scaler_X.pkl" if os.path.exists("scaler_X.pkl") else "scaler_X.pkl"
-    file_Y = "scaler_Y.pkl" if os.path.exists("scaler_Y.pkl") else "scaler_Y.pkl"
+    file_x = "scaler_X.pkl" if os.path.exists("scaler_X.pkl") else "scaler_x.pkl"
+    file_y = "scaler_Y.pkl" if os.path.exists("scaler_Y.pkl") else "scaler_y.pkl"
     
     scaler_X = joblib.load(file_x)
     scaler_Y = joblib.load(file_y)
-    return scaler_X, scaler_y
+    return scaler_X, scaler_Y
 
 try:
-    scaler_X, scaler_y = load_assets()
+    scaler_X, scaler_Y = load_assets()
 except Exception as e:
     st.error(f"Error loading model assets. Please check file names. Details: {e}")
     st.stop()
@@ -46,7 +46,7 @@ total_weight = metformin_base + mcc + lactose + starch + pvp + hpmc + am_gum + c
 # 4. Processing Calculations Through Stable Matrix Equations
 hardness = 4.5 + (0.02 * mcc) + (0.04 * pvp) - (0.2 * mag_stearate)
 friability = 0.95 - (0.003 * hardness) + (0.005 * mag_stearate)
-disintegration = 4.2 + (0.05 * hardness) + (0.03 * pvp) - (0.08 * croscarmellose)
+disintegration = 4.2 + (0.05 * hardness) + (0.03 * pvp) - (0.12 * croscarmellose)
 dissolution = 99.8 - (0.25 * disintegration) - (0.3 * mag_stearate) + (0.05 * croscarmellose)
 
 # Bound checking continuous mathematical predictions with standard caps
