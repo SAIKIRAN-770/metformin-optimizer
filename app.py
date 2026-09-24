@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import sklearn
 import joblib
+import os
 
 # 1. Page Configuration and Styling
 st.set_page_config(page_title="Metformin Tablet Optimization Platform", layout="centered")
@@ -10,11 +11,14 @@ st.title("💊 Metformin HCl Tablet Optimization Platform")
 st.markdown("### Quality by Design (QbD) Multi-Output Neural Network App")
 st.write("Adjust the functional ingredient mass parameters using the sliders below to dynamically check core tablet attributes.")
 
-# 2. Loading the Model Assets Cache (Matching Capital Filenames Perfectly)
+# 2. Loading the Model Assets Cache (With Case-Insensitive Multi-Path Fallbacks)
 @st.cache_resource
 def load_assets():
-    scaler_X = joblib.load("scaler_X.pkl")
-    scaler_y = joblib.load("scaler_Y.pkl")
+    file_x = "scaler_X.pkl" if os.path.exists("scaler_X.pkl") else "scaler_x.pkl"
+    file_y = "scaler_Y.pkl" if os.path.exists("scaler_Y.pkl") else "scaler_y.pkl"
+    
+    scaler_X = joblib.load(file_x)
+    scaler_y = joblib.load(file_y)
     return scaler_X, scaler_y
 
 try:
